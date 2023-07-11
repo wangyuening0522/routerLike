@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Router</title>
+  </head>
+  <body>
+    <h1>Welcome to Simple Router</h1>
+    <div id="content"></div>
+    <ul>
+      <li><a href="/" onclick="handleClick(event)">Home</a></li>
+      <li><a href="/about" onclick="handleClick(event)">About</a></li>
+      <li><a href="/contact" onclick="handleClick(event)">Contact</a></li>
+    </ul>
+    <script>
+      const router = {
+        "/": "<h2>Home Page</h2><p>主页</p>",
+        "/about": "<h2>About Page</h2><p>关于我们</p>",
+        "/contact": "<h2>Contact Page</h2><p>联系我们</p>",
+      };
+
+      function handleClick(event) {
+        //1.阻止页面跳转(默认行为)
+        event.preventDefault();
+        const path = event.target.getAttribute("href");
+        //修改页面内容
+        render(path);
+        //将当前页面的 URL 更改为所点击链接的 URL，这样就可以在浏览器的历史记录中添加新的条目。
+        window.history.pushState(null, null, path);
+      }
+
+      function render(path) {
+        const contentDiv = document.querySelector("#content");
+        //2.使用router数组中填上contentDiv盒子的html内容
+        //注意：key是字符串，使用[]取对象值
+        contentDiv.innerHTML = router[path];
+      }
+    </script>
+  </body>
+</html>
