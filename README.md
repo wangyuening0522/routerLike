@@ -6,3 +6,9 @@
  1. 阻止页面跳转(event.preventDefault();)
  2. 修改页面内容(render)
  3. 修改url(window.history.pushState(null, null, path);)
+# vuexLike
+ ## 思路：
+ 1. 创建一个状态对象，用来存放应用程序的状态
+ 2. 定义一些用来修改状态的方法，这些方法会接收当前的状态对象作为参数,然后进行修改
+ 3. 创建一个对象(store)来存储各种操作（例如 mutations、actions、getters 等）
+ 4. 在应用程序中使用这个 store 对象
