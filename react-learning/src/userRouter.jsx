@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 
 const useRouter = () => {
-  //使用了 useHistory 钩子获取了当前路由的历史记录对象，然后使用 useState 钩子来维护当前的路由状态。
-  const history = useHistory();
-  const [location, setLocation] = useState(history.location);
+  const [location, setLocation] = useState(window.location);
 
   useEffect(() => {
-    //对路由的变化进行监听。每当路由发生变化时
-    const unlisten = history.listen((location) => {
-      //使用 setLocation 函数来更新当前的路由状态。
-      setLocation(location);
-    });
+    const Change = () => {
+      // 使用 window.location 对象来获取当前的路由信息。
+      setLocation(window.location);
+    };
+
+    // 监听路由变化事件，当路由发生变化时执行 Change 函数。
+    window.addEventListener("popstate", Change);
 
     return () => {
-      unlisten();
+      // 卸载组件时移除监听事件。
+      window.removeEventListener("popstate", Change);
     };
-  }, [history]);
+  }, []);
 
+  // 返回当前的 location 对象，其中包含了 pathname、search 和 hash 等路由信息。
   return location;
 };
 
